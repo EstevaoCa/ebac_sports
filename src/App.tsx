@@ -5,6 +5,7 @@ import Produtos from './containers/Produtos'
 import { GlobalStyle } from './styles'
 import { Provider } from 'react-redux'
 import { store } from './store'
+import { useGetProdutosQuery } from './services/api'
 
 export type Produto = {
   id: number
@@ -14,13 +15,9 @@ export type Produto = {
 }
 
 function App() {
-  const [produtos, setProdutos] = useState<Produto[]>([])
+  const { data: produtos = [], isLoading } = useGetProdutosQuery()
 
-  useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/ebac_sports')
-      .then((res) => res.json())
-      .then((res) => setProdutos(res))
-  }, [])
+  if (isLoading) return <h2>Carregando...</h2>
 
   return (
     <Provider store={store}>
