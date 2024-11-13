@@ -21,7 +21,9 @@ const favoritoSlice = createSlice({
       )
 
       if (produtoExiste) {
-        state.favorItens.filter((p) => p.id !== favoritosCarrinho.id)
+        state.favorItens = state.favorItens.filter(
+          (p) => p.id !== favoritosCarrinho.id
+        )
       } else {
         state.favorItens.push(favoritosCarrinho)
       }
